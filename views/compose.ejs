@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src *;
+   img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *">
+  <meta charset="utf-8">
+  <title>Daily Journal</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <p class="navbar-brand"><a href="/">DAILY JOURNAL</a></p>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li id="home"><a href="/">HOME</a></li>
+        <li id="about"><a href="/about">ABOUT US</a></li>
+        <li id="contact"><a href="/contact">CONTACT US</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<body>
+  <div class="container container-fluid">
+    <h1>Compose</h1>
+    <form class="" action="/compose" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" type="text" name="postTitle">
+        <label>Post</label>
+        <textarea class="form-control" name="postBody" rows="5" cols="30"></textarea>
+        <label>Image</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <button style="display: none;" id="like-btn" name="like" type="submit">0</button>     
+        <button style="margin-top: 15px;" class="btn btn-primary" type="submit" name="button">Publish</button>
+      </div>
+    </form>
+
+<%- include("partials/footer"); -%>

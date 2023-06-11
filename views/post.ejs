@@ -1,0 +1,33 @@
+<%- include("partials/header"); -%>
+<div id="post-container"> 
+    <h1 id="post-title"><%= title %></h1>
+    <% try{ %>
+        <img id="post-image" width="100" height="100"
+    src="data:image/<%=img.contentType%>;base64,
+    <%=img.data.toString('base64')%>"
+    />
+    <%}catch{%>
+    <img id="home-post-image" style="display: none;" />
+    <%} %>
+    
+    <div id="post-body-container">
+        <p id="post-body"><%= content %></p>
+    </div>
+    <p name="likes">Number of likes: <%= likes %></p>
+    <form action="/like">
+        <button type="submit">Like👍</button>
+    </form>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          await fetch("/like/<%=post._id%>", {method: "POST"});
+        //   const response = await fetch("/");
+        //   const data = await response.json();
+        //   document.querySelector("p").textContent = `${data.likes}`
+        })
+    </script>
+</div>
+<%- include("partials/footer"); -%>
+<button id="post-delete-btn"><a href="/delete/<%=id%>">Delete Post</a></button>
