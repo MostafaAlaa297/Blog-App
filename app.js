@@ -21,7 +21,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true}).then(console.log("Database connected"))
 
 const multer = require('multer');
  
