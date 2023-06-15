@@ -50,7 +50,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     border: 1px solid #1abc9c;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 60rem;
     height: 50rem;
     margin-bottom: 20px;
@@ -71,6 +71,7 @@ a:hover {
     border: 1px solid #1abc9c;
     border-top: none;
     border-radius: 5px;
+    word-break: break-all;
 }
 
 #home-post-title {
@@ -167,14 +168,14 @@ a:hover {
 }
 
 #post-delete-btn {
-    position: relative;
-    left: 0;
-    bottom: 6.3rem;
+    position: absolute;
+    right: 0;
+    bottom: 5rem;
     background-color: transparent; 
     border: 1px solid #000;
     border-radius: 3px;
     padding: 10px;
-    z-index: -1;
+    z-index: 1000;
     margin: auto;
 }
 
@@ -216,7 +217,7 @@ a:hover {
     text-decoration: none;
 }
 
-#like-container {
+.like-container {
     position: absolute;
     bottom: 10px;
     left: 15px;
@@ -224,6 +225,21 @@ a:hover {
 
 #like-form {
     display: inline;
+}
+
+.like_btn {
+    padding: 0.7rem 1rem;
+    color: #1abc9c;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: 0.3s ease;
+}
+
+.like_btn:hover {
+    border-radius: 10px 5px;
+    background-color: #000;
+    transition: 0.3s ease;   
 }
 
 .footer {

@@ -43,24 +43,36 @@ app.get("/", function(req, res){
       startingContent: homeStartingContent,
       posts: posts,
       });
+    });
   });
-});
+  
+  app.get("/compose", function(req, res){
+    res.render("compose");
+  });
+ 
+app.post("/like/:postId", async function(req, res){
+  const likedPostId = req.params.postId;
+  console.log("Maa Niggaa: " + likedPostId)
+  await Post.findOneAndUpdate({_id: likedPostId}, {$inc: { like: 1 } })
+  res.send({ like: (await Post.findById(likedPostId)).like });
+})
 
-app.get("/compose", function(req, res){
-  res.render("compose");
-});
-
-app.get("/:postId", function(req, res){
+app.get("/like/:postId", async function(req, res){
   const postId = req.params.postId;
-  Post.findOne({_id: postId}, function(err, post){
-    // console.log(post)
+  console.log(postId);
+  // Post.findOne({_id: postId}, function(err, post){
+    // Post.findOne({_id: postId}, (err, post) => {console.log(post.like)})
     try {
-    res.json(post.like);
+      await Post.findOne({_id: postId}, (err, post) => {
+        console.log(post.like)
+        console.log("postID: "+post._id)
+        res.json(post);
+      })
     }
     catch(err){
       console.log("we have: " + err);
     }
-  });
+  // });
 });
 
 
@@ -78,7 +90,7 @@ try {
     post = {
       title: req.body.postTitle,
       content: req.body.postBody,
-      like: 0
+      // like: 0
     }
   } else {
     post = {
@@ -88,7 +100,7 @@ try {
         data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
         contentType: 'image/png'
       },
-      like: 0
+      // like: 0
     };
   }
   const postObject = new Post(post);
@@ -173,17 +185,13 @@ const requestedPostId = req.params.postId;
       title: post.title,
       content: post.content,
       img: post.img,
+      like: post.like,
       id: requestedPostId
     });
   });
 
 });
 
-app.post("/:postId", async function(req, res){
-  const likedPostId = req.params.postId;
-  await Post.findOneAndUpdate({likedPostId}, {$inc: { like: 1 } })
-  res.send({ like: (await Post.findById(likedPostId)).like });
-})
 
 app.get("/about", function(req, res){
   res.render("about", {aboutContent: aboutContent});

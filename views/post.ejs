@@ -13,21 +13,23 @@
     <div id="post-body-container">
         <p id="post-body"><%= content %></p>
     </div>
-    <p name="likes">Number of likes: <%= likes %></p>
-    <form action="/like">
-        <button type="submit">Like👍</button>
-    </form>
+    <div class="like-container">
+        <form action="/like/<%=id%>">
+          <button style="margin-top: -20px; padding: 1rem;" id="like-btn-<%=id%>" name="like" type="submit"><%= like %> | Like</button>     
+        </form>
+      </div>
+    </div>
+    <button id="post-delete-btn"><a href="/delete/<%=id%>">Delete Post</a></button>
+    <%- include("partials/footer"); -%>
     <script>
-        const form = document.querySelector('form');
-        form.addEventListener("submit", async (event) => {
-          event.preventDefault();
-
-          await fetch("/like/<%=post._id%>", {method: "POST"});
-        //   const response = await fetch("/");
-        //   const data = await response.json();
-        //   document.querySelector("p").textContent = `${data.likes}`
+        document.querySelector('form').addEventListener("submit", async (event) => {
+            event.preventDefault();
+            // console.log("here we gooo: " + JSON.stringify(this));
+            // console.log("This is: " + JSON.stringify(this));
+            await fetch("/like/<%=id%>", {method: "POST"});
+            const response = await fetch("/like/<%=id%>", {method: "GET"});
+            const data = await response.json();
+            console.log("this is data: " + `${data._id == "<%=id%>" ? "<%=id%> and " + data._id: 0}`)
+            document.getElementById("like-btn-<%=id%>").textContent = `${data._id === "<%=id%>" ? data.like : null} | Like`;
         })
     </script>
-</div>
-<%- include("partials/footer"); -%>
-<button id="post-delete-btn"><a href="/delete/<%=id%>">Delete Post</a></button>

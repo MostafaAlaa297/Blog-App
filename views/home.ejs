@@ -1,37 +1,48 @@
 <%- include("partials/header"); -%>
     <h1>Home</h1>
     <p> <%= startingContent %> </p>
-    <%  posts.forEach(function(post){ %>
+    <%  for(let i = 0; i < posts.length; i++){ %>
       <div id="home-post-container">
-        <button id="home-post-delete-btn"><a href="/delete/<%=post._id%>">X</a></button>
-        <button id="home-post-edit-btn"><a href="/update/<%=post._id%>">Edit</a></button>
-        <h1 id="home-post-title"><a href="/posts/<%=post._id%>"><%=post.title%></a></h1>
+        <button id="home-post-delete-btn"><a href="/delete/<%=posts[i]._id%>">X</a></button>
+        <button id="home-post-edit-btn"><a href="/update/<%=posts[i]._id%>">Edit</a></button>
+        <h1 id="home-post-title"><a href="/posts/<%=posts[i]._id%>"><%=posts[i].title%></a></h1>
         <% try{ %>
-          <img id="home-post-image" src="data:image/<%=post.img.contentType%>;base64, 
-        <%=post.img.data.toString('base64')%>" 
+          <img id="home-post-image" src="data:image/<%=posts[i].img.contentType%>;base64, 
+        <%=posts[i].img.data.toString('base64')%>" 
         />
         <%}catch{%>
           <img id="home-post-image" style="display: none;" />
         <%} %>
       </div>
       <div id="home-post-body-container">
-        <p id="home-post-body"><%=post.content.substring(0, 150) + "..."%><a style="color: grey;" href="/posts/<%=post._id%>">Read More</a></p>
+        <p id="home-post-body"><%=posts[i].content.substring(0, 150)%><a style="color: grey;" href="/posts/<%=posts[i]._id%>">...Read More</a></p>
         
-        <div id="like-container">
-          <form action="/<%=post._id%>">
-            <button id="like-btn" name="like" type="submit"><%= post.like %> | Like</button>     
+        <div class="like-container">
+          <form>
+            <button class="like_btn" id="like-btn-<%=posts[i]._id%>" name="like" type="submit"><%= posts[i].like %> | Like</button>
           </form>
         </div>
       </div>
       <script>
-        document.querySelector('form').addEventListener("submit", async (event) => {
-          event.preventDefault();
-          await fetch("/<%=post._id%>", {method: "POST"});
-          const response = await fetch("/<%=post._id%>", {method: "GET"});
-          const data = await response.json();
-          console.log("this is data: " + data)
-          document.getElementById("like-btn").textContent = `${data} | Like`;
-        })
+        document.querySelectorAll('form').forEach(form => {
+          /*
+          if statement here is for making the fetch send 
+          the request only once and not n times (number of posts)
+          as this will make each post update its like count in different counts 
+          */
+          if (!form.classList.contains('like-form')) {
+            form.classList.add('like-form');
+            form.addEventListener("submit", async (event) => {
+              event.preventDefault();
+              const postId = form.querySelector('button').id.split('-')[2];
+              await fetch("/like/" + postId, {method: "POST"});
+              const response = await fetch("/like/" + postId, {method: "GET"});
+              const data = await response.json();
+              console.log("this is data: " + data.like);
+              document.getElementById("like-btn-" + postId).innerText = data.like + " | Like";
+            });
+          }
+        });
       </script>
-    <% }) %>
+    <% } %>
 <%- include("partials/footer"); -%>
