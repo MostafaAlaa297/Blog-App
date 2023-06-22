@@ -130,51 +130,48 @@ app.get("/update/:postId", function(req, res) {
 })
 
 app.post("/update", upload.single('image'), async function(req, res, next) {
-  // const requestedPostId = req.body.postId
   const postTitle = req.body.postTitle;
   const postBody = req.body.postBody;
   const postImage = req.body.image;
 
-  console.log(requestedPostId);
   try {
-    // check if the request has an image or not
-    console.log(req.file.filename);
-    if (!req.file.mimetype) {
-      // res.json({
-      //   success: false,
-      //   message: "You must provide at least 1 file"
-      // });
-      await Post.findOneAndUpdate({_id: requestedPostId},
-         {  
-          title: postTitle,
-          content: postBody,
-          // img: postImage
-        })
-        console.log("mimeType: " + req.file.mimetype);
-        console.log("called if");
-      } else {
-        await Post.findOneAndUpdate({_id: requestedPostId},
-          {  
-            title: req.body.postTitle,
-            content: req.body.postBody,
-            img: {
-              data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-              contentType: 'image/png'
-            }
-          })
-          console.log("called else");
-    }
-  //   const postObject = new Post(post);
-  // saving the object into the database
-  //   await postObject.save();
-  //   res.redirect("/");
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-  }
-    res.redirect("/")
+      // Check if a file was uploaded
+      if (req.file) {
+          // Access the filename property of the uploaded file
+          console.log(req.file.filename);
 
-})
+          // Check if the uploaded file has a mimetype
+          // if (!req.file.mimetype) {
+          //     await Post.findOneAndUpdate({_id: requestedPostId}, {  
+          //         title: postTitle,
+          //         content: postBody,
+          //     });
+          //     console.log("mimeType: " + req.file.mimetype);
+          //     console.log("called if");
+          // } else {
+              await Post.findOneAndUpdate({_id: requestedPostId}, {  
+                  title: req.body.postTitle,
+                  content: req.body.postBody,
+                  img: {
+                      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                      contentType: 'image/png'
+                  }
+              });
+              console.log("called else");
+          // }
+      } else {
+          // Handle the case where no file was uploaded
+          await Post.findOneAndUpdate({_id: requestedPostId}, {  
+              title: postTitle,
+              content: postBody,
+          });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
+  }
+  res.redirect("/")
+});
 
 app.get("/posts/:postId", function(req, res){
 

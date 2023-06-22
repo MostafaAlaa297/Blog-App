@@ -43,58 +43,41 @@ a:hover {
 }
 
 #home-post-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #1abc9c;
-    border-radius: 10px;
-    width: 60rem;
-    height: 50rem;
-    margin-bottom: 20px;
-    /* background-color: chartreuse; */
-    z-index: 10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #1abc9c;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  width: 60rem;
+  height: auto;
+  margin-bottom: 20px;
+  /* background-color: chartreuse; */
+  z-index: 10;
+}
+
+#home-post-container.no-image {
+  height: 50rem;
 }
 
 #home-post-body-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    bottom: 40px;
-    width: 60rem;
-    height: 20rem;
-    /* background-color: antiquewhite; */
-    margin-bottom: 5rem;
-    border: 1px solid #1abc9c;
-    border-top: none;
-    border-radius: 5px;
-    word-break: break-all;
-}
-
-#home-post-title {
-    position: absolute;
-    top: 1rem;
-    /* font-size: 3rem; */
-}
-
-#home-post-body {
-    position: absolute;
-    text-align: left;
-    padding: 20px;
-}
-
-#home-post-image {
-    position: absolute;
-    width: auto;
-    height: auto;
-    max-height: 80%;
-    max-width: 100%;
-    bottom: 0;
-    /* border-radius: 5px; */
-    /* z-index: -1; */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 40px;
+  width: 60rem;
+  height: 20rem;
+  /* background-color: antiquewhite; */
+  margin-bottom: 5rem;
+  border: 1px solid #1abc9c;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  word-break: break-all;
+  padding: 1rem;
 }
 
 #post-container {
@@ -116,6 +99,11 @@ a:hover {
     /* background-color: antiquewhite; */
 }
 
+ #post-container.no-image {
+    height: 100%;
+} 
+
+/* #post-body-container.full {} */ 
 
 #post-image {
     position: absolute;
@@ -145,13 +133,13 @@ a:hover {
     width: 100%;
     height: 40%;
     /* min-height: 40%; */
-    /* max-height: 70%; */
+    max-height: 70%;
     bottom: 0;
     margin-bottom: 20px;
     /* background-color: aqua; */
     z-index: 100;
     word-wrap: break-word;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     /* border: 1px solid #000; */
     /* padding: 3rem; */
 }
@@ -160,6 +148,7 @@ a:hover {
     position: absolute;
     width: 95%;
     height: 95%;
+    max-height: 100%;
     /* top: auto; */
     /* max-block-size: 20ch; */
     /* margin-top: auto; */
@@ -169,18 +158,39 @@ a:hover {
 
 #post-delete-btn {
     position: absolute;
-    right: 0;
-    bottom: 5rem;
+    right: 15rem;
+    bottom: -51rem;
     background-color: transparent; 
     border: 1px solid #000;
     border-radius: 3px;
     padding: 10px;
-    z-index: 1000;
+    z-index: 999;
     margin: auto;
 }
 
 #post-delete-btn:hover {
     background-color: #1abc9c;
+}
+
+#edit-post-image {
+    position: relative;
+    /* width: auto; */
+    height: auto;
+    background-color: antiquewhite;
+}
+
+#delete-img-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 10px;
+    background-color: whitesmoke; 
+    border: none;
+}
+
+#delete-img-btn:hover {
+    color: #1abc9c;
+    background-color: #000;
 }
 
 #home-post-edit-btn {
@@ -221,6 +231,7 @@ a:hover {
     position: absolute;
     bottom: 10px;
     left: 15px;
+    z-index: 9999;
 }
 
 #like-form {
@@ -249,7 +260,7 @@ a:hover {
     width: 100%;
     height: 60px;
     background-color: #1abc9c;
-    z-index: 1000;
+    z-index: 99999;
 }
 
 .footer p {

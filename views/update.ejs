@@ -34,14 +34,17 @@
         <label>Post</label>
         <textarea class="form-control" name="postBody" rows="5" cols="30"><%= postBody %></textarea>
         <label>Update Image</label>
-        <% try{ %>
-            <img id="edit-post-image" style="display: block; margin-bottom: 10px;" width="100" height="100"
-        src="data:image/<%=img.contentType%>;base64,
-        <%=img.data.toString('base64')%>"
-        />
-        <%}catch{%>
-        <img id="home-post-image" style="display: none;" />
-        <%} %>
+        <%if(!img.data){%>
+            <!-- <img id="home-post-image" style="display: none;" />     -->
+        <%}else{%>
+          <div id="edit-post-image">
+            <img style="display: block; margin-bottom: 10px;" width="100" height="100"
+            src="data:image/<%=img.contentType%>;base64,
+            <%=img.data.toString('base64')%>"
+            />
+            <button id="delete-img-btn">X</button>
+          </div>
+          <%} %>
         <input type="file" name="image" id="image" accept="image/*">
       </div>
       <button class="btn btn-primary" type="submit" name="button">Update</button>

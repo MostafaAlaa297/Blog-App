@@ -7,7 +7,7 @@
         <button id="home-post-edit-btn"><a href="/update/<%=posts[i]._id%>">Edit</a></button>
         <h1 id="home-post-title"><a href="/posts/<%=posts[i]._id%>"><%=posts[i].title%></a></h1>
         <% try{ %>
-          <img id="home-post-image" src="data:image/<%=posts[i].img.contentType%>;base64, 
+          <img id="home-post-image" width="100%" height="auto" src="data:image/<%=posts[i].img.contentType%>;base64, 
         <%=posts[i].img.data.toString('base64')%>" 
         />
         <%}catch{%>
