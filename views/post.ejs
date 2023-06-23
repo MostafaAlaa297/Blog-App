@@ -1,31 +1,31 @@
 <%- include("partials/header"); -%>
-<div id="post-container" <% if(!img){ %>class="no-image"<% } %>>
+<div id="post-container" <% if(!img.data){ %>class="no-image"<% } %>>
     <h1 id="post-title"><%= title %></h1>
-    <% try{ %>
-        <img id="post-image" width="100" height="100"
-    src="data:image/<%=img.contentType%>;base64,
-    <%=img.data.toString('base64')%>"
-    />
-    <%}catch{%>
-    <img id="home-post-image" style="display: none;" />
-    <%} %>
+        <% if(!img.data){%>
+            <!-- <img id="home-post-image" style="display: none;" /> -->
+        <%}else{%>
+                <img id="post-image"
+            src="data:image/<%=img.contentType%>;base64,
+            <%=img.data.toString('base64')%>"
+            />
+        <%}%>
     
     <div id="post-body-container">
         <p id="post-body"><%= content %></p>
     </div>
-    <div class="like-container">
-        <form action="/like/<%=id%>">
-          <button class="like_btn" id="like-btn-<%=id%>" name="like" type="submit"><%= like %> | Like</button>     
-        </form>
-      </div>
+    <div id="button-container" class="btn-container">
+        <button class="btn" id="post-delete-btn"><a href="/delete/<%=id%>">Delete Post</a></button>
+        <button class="btn" id="post-edit-btn"><a href="/update/<%=id%>">Edit Post</a></button>
+        <div class="post-like-container">
+            <form action="/like/<%=id%>">
+                <button class="btn like_btn" id="like-btn-<%=id%>" name="like" type="submit"><%= like %> | Like</button>
+            </form>
+        </div>
     </div>
-    <button id="post-delete-btn"><a href="/delete/<%=id%>">Delete Post</a></button>
     <%- include("partials/footer"); -%>
     <script>
         document.querySelector('form').addEventListener("submit", async (event) => {
             event.preventDefault();
-            // console.log("here we gooo: " + JSON.stringify(this));
-            // console.log("This is: " + JSON.stringify(this));
             await fetch("/like/<%=id%>", {method: "POST"});
             const response = await fetch("/like/<%=id%>", {method: "GET"});
             const data = await response.json();

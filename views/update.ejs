@@ -7,14 +7,14 @@
    img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
    style-src  'self' 'unsafe-inline' *">
   <meta charset="utf-8">
-  <title>Daily Journal</title>
+  <title>ComPost</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <p class="navbar-brand"><a href="/">DAILY JOURNAL</a></p>
+        <p class="navbar-brand"><a href="/">ComPost</a></p>
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li id="home"><a href="/">HOME</a></li>
@@ -38,15 +38,31 @@
             <!-- <img id="home-post-image" style="display: none;" />     -->
         <%}else{%>
           <div id="edit-post-image">
-            <img style="display: block; margin-bottom: 10px;" width="100" height="100"
+            <img name="image" style="display: block; margin-bottom: 10px;" width="100" height="100"
             src="data:image/<%=img.contentType%>;base64,
             <%=img.data.toString('base64')%>"
             />
-            <button id="delete-img-btn">X</button>
           </div>
           <%} %>
-        <input type="file" name="image" id="image" accept="image/*">
-      </div>
-      <button class="btn btn-primary" type="submit" name="button">Update</button>
-    </form>
+          <input type="file" name="image" id="image" accept="image/*">
+        </div>
+        <button class="btn btn-primary" type="submit" name="button">Update</button>
+      </form>
+      <%if(!img.data){%>
+        
+        <%}else{%>
+          <form action="/edit/<%=id%>" method="POST" id="delete-img-form">
+            <button type="submit" id="delete-img-btn" name="delete_img_btn">X</button>
+          </form>
+        <%}%>
+    <script>
+      document.getElementById("delete-img-btn").addEventListener("submit", async(event) => {
+        event.preventDefault();
+        console.log("<%id%>");
+        // await fetch("/edit/<%id%>", {method: "POST"});
+        const response = await fetch("/edit/" + "<%id%>", {method: "GET"});
+        const postData = await response.json();
+        console.log("This is data " + JSON.stringidy(data));
+      })
+    </script>
 <%- include("partials/footer"); -%>

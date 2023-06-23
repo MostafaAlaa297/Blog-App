@@ -13,9 +13,15 @@ a:hover {
 }
 
 .container-fluid {
-    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
     padding-top: 70px;
     padding-bottom: 60px;
+    min-height: 100%;
+    overflow-x: auto;
+    /* background-color: aliceblue; */
 }
 
 .navbar {
@@ -42,6 +48,11 @@ a:hover {
     color: #000 !important;
 }
 
+#home-content {
+    margin-bottom: 10rem;
+    /* font-weight: bold; */
+}
+
 #home-post-container {
   position: relative;
   display: flex;
@@ -49,14 +60,16 @@ a:hover {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  border: 1px solid #1abc9c;
-  border-bottom: none;
-  border-radius: 5px 5px 0 0;
+  /* border: 1px solid #1abc9c; */
+  border-top: 1px solid #d1d1d1;
+  border-left: 1px solid #d1d1d1;
+  border-radius: 5px;
   width: 60rem;
   height: auto;
   margin-bottom: 20px;
   /* background-color: chartreuse; */
   z-index: 10;
+  box-shadow: 1px 1px 5px grey;
 }
 
 #home-post-container.no-image {
@@ -73,11 +86,17 @@ a:hover {
   height: 20rem;
   /* background-color: antiquewhite; */
   margin-bottom: 5rem;
-  border: 1px solid #1abc9c;
-  border-top: none;
+  border-left: 1px solid #d1d1d1;
+  border-right: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
   border-radius: 0 0 5px 5px;
   word-break: break-all;
   padding: 1rem;
+  /* box-shadow: 0px -1px 7px grey; */
+}
+
+#home-post-image {
+    border-radius: 5px;
 }
 
 #post-container {
@@ -97,34 +116,32 @@ a:hover {
     text-align: justify;
     /* border: 1px solid #000; */
     /* background-color: antiquewhite; */
+    
 }
 
  #post-container.no-image {
-    height: 100%;
+    height: 40rem;
 } 
 
-/* #post-body-container.full {} */ 
 
 #post-image {
     position: absolute;
     top: 5%;
-    width: 100%;
-    height: 50%;
-    /* max-height: 50%; */
+    width: auto;
+    /* height: 50%; */
+    max-height: 50%;
     /* min-height: 50%; */
 }
 
 #post-title {
     position: absolute;
     top: 0;
-    margin: auto;
     height: auto;
-    /* left: calc(100vw/2px); */
+    border-bottom: 1px solid #1abc9c;
 }
 
 #post-body-container {
     position: absolute;
-    /* top: 10rem; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -158,39 +175,68 @@ a:hover {
 
 #post-delete-btn {
     position: absolute;
-    right: 15rem;
-    bottom: -51rem;
+    right: 10rem;
+    /* bottom: 0; */
     background-color: transparent; 
-    border: 1px solid #000;
-    border-radius: 3px;
+    border-left: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+    /* border-radius: 3px;s */
     padding: 10px;
     z-index: 999;
-    margin: auto;
+    /* margin: auto; */
 }
 
 #post-delete-btn:hover {
     background-color: #1abc9c;
 }
 
+#button-container {
+    position: fixed;
+    bottom: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    z-index: 999999;
+}
 #edit-post-image {
     position: relative;
     /* width: auto; */
     height: auto;
-    background-color: antiquewhite;
+    
+}
+
+#delete-img-form {
+    position: absolute;
+    bottom: 25.9rem;
 }
 
 #delete-img-btn {
     position: absolute;
     top: 0;
-    left: 0;
+    left: -13.4rem;
     font-size: 10px;
-    background-color: whitesmoke; 
     border: none;
 }
 
 #delete-img-btn:hover {
     color: #1abc9c;
     background-color: #000;
+}
+
+#home-post-title {
+    border-bottom: 3px solid #d1d1d1;
+    border-top: 3px solid #d1d1d1;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+#home-post-title:hover {
+    border-top: 3px solid #1abc9c;
+    border-bottom: 3px solid #1abc9c;
+    
 }
 
 #home-post-edit-btn {
@@ -202,6 +248,14 @@ a:hover {
     border-radius: 3px;
     padding: 10px;
     z-index: -1;
+}
+
+#home-post-edit-btn a{
+    color: #1abc9c;
+}
+
+#home-post-edit-btn:hover {
+    background-color: #000;
 }
 
 #home-post-delete-btn {
@@ -227,10 +281,16 @@ a:hover {
     text-decoration: none;
 }
 
-.like-container {
+.home-post-like-container {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    z-index: 9999;
+}
+.post-like-container {
     position: absolute;
     bottom: 10px;
-    left: 15px;
+    right: calc(50% - 5px);
     z-index: 9999;
 }
 
@@ -241,7 +301,7 @@ a:hover {
 .like_btn {
     padding: 0.7rem 1rem;
     color: #1abc9c;
-    border: 1px solid #000;
+    border: 1px solid #d1d1d1;
     border-radius: 5px;
     background-color: transparent;
     transition: 0.3s ease;
@@ -250,17 +310,49 @@ a:hover {
 .like_btn:hover {
     border-radius: 10px 5px;
     background-color: #000;
+    color: #1abc9c;
     transition: 0.3s ease;   
+}
+
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+#post-edit-btn {
+    position: absolute;
+    left: 10rem;
+    background-color: transparent;
+    border-right: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+    padding: 10px;
+}
+
+#post-edit-btn:hover {
+    color: #000;
+    background-color: #1abc9c;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
 
 .footer {
     position: fixed;
+    left: 0;
+    right: 0;
     text-align: center;
     bottom: 0;
     width: 100%;
     height: 60px;
     background-color: #1abc9c;
     z-index: 99999;
+    box-shadow: 0 -3px 7px grey;
 }
 
 .footer p {

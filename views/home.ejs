@@ -1,6 +1,6 @@
 <%- include("partials/header"); -%>
     <h1>Home</h1>
-    <p> <%= startingContent %> </p>
+    <h4 id="home-content"> <%= startingContent %> </h4>
     <%  for(let i = 0; i < posts.length; i++){ %>
       <div id="home-post-container">
         <button id="home-post-delete-btn"><a href="/delete/<%=posts[i]._id%>">X</a></button>
@@ -17,7 +17,7 @@
       <div id="home-post-body-container">
         <p id="home-post-body"><%=posts[i].content.substring(0, 150)%><a style="color: grey;" href="/posts/<%=posts[i]._id%>">...Read More</a></p>
         
-        <div class="like-container">
+        <div class="home-post-like-container">
           <form>
             <button class="like_btn" id="like-btn-<%=posts[i]._id%>" name="like" type="submit"><%= posts[i].like %> | Like</button>
           </form>
