@@ -1,6 +1,5 @@
 # Blog-App
-## Blog Posting App
-
+## Compost; an application where you can post your thoughts
 **Home:**
 ![Home Page](https://github.com/MostafaAlaa297/Blog-App/blob/main/Screenshots/homepage.png?raw=true)
 
