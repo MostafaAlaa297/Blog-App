@@ -1,7 +1,7 @@
 # Blog-App
-## Compost; an application where you can post your thoughts
+### Compost; an application where you can post your thoughts
 
-## Technologies:
+### Technologies:
 **Node.js(Express.js), MongoDB(Mongoose), Multer middleware, body-parser, fs, path, ejs**
 _____________________________________________________________________________________________________
 **Home:**
