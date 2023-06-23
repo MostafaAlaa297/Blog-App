@@ -1,9 +1,9 @@
-# Blog-App
-> Compost; an application where you can post your thoughts
+> Blog-App
+## Compost; an application where you can post your thoughts
 
-**Technologies:**
-### Node.js(Express.js), MongoDB(Mongoose), Multer middleware, body-parser, fs, path, ejs
-
+### Technologies:
+**Node.js(Express.js), MongoDB(Mongoose), Multer middleware, body-parser, fs, path, ejs**
+_____________________________________________________________________________________________________
 **Home:**
 ![Home Page](https://github.com/MostafaAlaa297/Blog-App/blob/main/Screenshots/homepage.png?raw=true)
 
