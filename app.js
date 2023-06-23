@@ -1,11 +1,8 @@
-// لما بنعمل أكتر من بوست الحوار بيبوظ يا عم إبراهيم
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
 const Post = require("./model")
-// const {Like} = require("./model")
-const _ = require("lodash")
 const path = require("path")
 const fs = require("fs")
 
@@ -60,8 +57,6 @@ app.post("/like/:postId", async function(req, res){
 app.get("/like/:postId", async function(req, res){
   const postId = req.params.postId;
   console.log(postId);
-  // Post.findOne({_id: postId}, function(err, post){
-    // Post.findOne({_id: postId}, (err, post) => {console.log(post.like)})
     try {
       await Post.findOne({_id: postId}, (err, post) => {
         console.log(post.like)
@@ -184,7 +179,7 @@ app.get("/contact", function(req, res){
 
 // The Route for deleting a post
 app.get("/delete/:postId", function (req, res) {
-  const requestedPostId = _.capitalize(req.params.postId);
+  const requestedPostId = req.params.postId;
   Post.findByIdAndRemove(requestedPostId, function(err){
     if(!err){
       console.log(`${requestedPostId} is successfully deleted`);
